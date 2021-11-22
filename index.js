@@ -17,7 +17,7 @@ let popupCloseBtn
 const main = () => {
     prepareDOMElement()
     prepareDOMEvents()
-
+    
 }
 
 const prepareDOMElement = () => {
@@ -25,27 +25,27 @@ const prepareDOMElement = () => {
     errorInfo = document.querySelector('.error-info')
     addBtn = document.querySelector('.btn-add')
     ulList = document.querySelector('.todolist ul')
-
+    
     popup = document.querySelector('.popup')
     popupInfo = document.querySelector('.popup-info')
     popupInput = document.querySelector('.popup-input')
     popupAddBtn = document.querySelector('.accept')
     popupCloseBtn = document.querySelector('.cancel')
     targetedChild = document.querySelectorAll('li')
-
-
+    
+    
 }
 
 const prepareDOMEvents = () => {
     addBtn.addEventListener('click', addNewTask)
     ulList.addEventListener('click', checkClick)
-
+    
     popupCloseBtn.addEventListener('click', clousePopup)
     popupAddBtn.addEventListener('click', changeTodoText)
     todoInput.addEventListener('keyup', enterKeyCheck)
     popupInput.addEventListener('keyup', checkpopupEwent)
-
-
+    
+    
 };
 
 
@@ -55,9 +55,9 @@ const addNewTask = () => {
         const newTodo = document.createElement('li')
         newTodo.textContent = todoInput.value
         ulList.append(newTodo)
-
+        
         createToolsArea(newTodo)
-
+        
         todoInput.value = ''
         errorInfo.textContent = ''
     } else {
@@ -69,21 +69,21 @@ const createToolsArea = (newTodo) => {
     const toolsArea = document.createElement('div')
     toolsArea.classList.add('tools')
     newTodo.append(toolsArea)
-
+    
     const btnComplete = document.createElement('button')
     btnComplete.classList.add('complete')
     btnComplete.innerHTML = '<i class="fas fa-check"></i>'
-
+    
     const btnEdit = document.createElement('button')
     btnEdit.classList.add('edit')
     btnEdit.textContent = 'EDIT'
-
+    
     const btnDelete = document.createElement('button')
     btnDelete.classList.add('delete')
     btnDelete.innerHTML = '<i class="fas fa-times"></i>'
     toolsArea.append(btnComplete, btnEdit, btnDelete)
-
-
+    
+    
 }
 
 const checkClick = e => {
@@ -92,17 +92,17 @@ const checkClick = e => {
         e.target.classList.toggle('completed')
     } else if (e.target.matches('.edit')) {
         editTodo(e)
-
+        
     } else if (e.target.matches('.delete')) {
         deleteTodo(e)
     } else if (e.target) {
-
+        
         targetedChild = e.target
         targetedChild.classList.toggle('targetedElement')
         console.log(targetedChild)
-
+                
         
-
+        
         document.addEventListener('keyup', (e) => {
             
             if (targetedChild.classList.contains('targetedElement') && e.key === 'Delete'  ) {
@@ -115,8 +115,8 @@ const checkClick = e => {
                 }
             }
         })
-
-
+        
+        
     }
 }
 const editTodo = e => {
@@ -132,25 +132,25 @@ const changeTodoText = (e) => {
     } else {
         popupInfo.textContent = 'Nalezy wpisac zadanie'
     }
-
+    
 }
 
 const clousePopup = () => {
     popup.style.display = 'none'
     popupInfo.textContent = ''
-
+    
 }
 
 const deleteTodo = e => {
     e.target.closest('li').remove()
-
+    
     const allTodo = ulList.querySelectorAll('li')
     if (allTodo.length === 0) {
         errorInfo.textContent = 'lista zadań jest pusta'
     } else {
         errorInfo.textContent = ''
     }
-
+    
 }
 const checkpopupEwent = (e) => {
     const styles = e.currentTarget.classList
@@ -163,9 +163,9 @@ const checkpopupEwent = (e) => {
 const enterKeyCheck = (e) => {
     if (e.key === 'Enter') {
         addNewTask()
-
+        
     }
-
+    
 }
 
 
